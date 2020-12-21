@@ -1,2 +1,21 @@
-<app-navbar></app-navbar>
+<app-navbar class="nav-bar"></app-navbar>
+
+<mat-toolbar class="nav-bar-mobile">
+  <button mat-icon-button  [matMenuTriggerFor]="menu" class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Books App</span>
+  <div>
+    <mat-menu #menu="matMenu">
+      <a mat-button routerLink="/home">Home</a>
+      <a mat-button routerLink="books">Books</a>
+      <a mat-button routerLink="authors">Authors</a>
+      <a mat-button routerLink="users">Users</a>
+      <div class="log-out">
+        <button mat-button>Log Out</button>
+      </div>
+    </mat-menu>
+  </div>
+</mat-toolbar>
+
 <router-outlet></router-outlet>

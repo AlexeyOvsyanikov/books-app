@@ -20,5 +20,43 @@
   }
 
 }
+::ng-deep{
+
+  .nav-bar-mobile{
+    background-color: #0006d8;
+    display: none;
+    color: white;
+
+  }
+
+  .mat-menu-content{
+    a{
+      display: block;
+      text-align: left;
+    }
+  }
+
+  @media screen and(max-width: 450px){
+    .nav-bar {
+      display: none;
+    }
+    .nav-bar-mobile{
+      display: block;
+    }
+  }
+
+  @media screen and(min-width: 451px){
+
+    .nav-bar {
+      display: block;
+    }
+
+    .nav-bar-mobile{
+      display: none !important;
+    }
+
+  }
+
+}
 
 
