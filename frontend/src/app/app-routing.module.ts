@@ -5,6 +5,8 @@ import {SignInComponent} from './components/sign-in/sign-in.component';
 import {SignUpComponent} from './components/sign-up/sign-up.component';
 import {HomeComponent} from "./components/books-app-components/home/home.component";
 import {BooksComponent} from "./components/books-app-components/books/books.component";
+import {AuthorsComponent} from "./components/books-app-components/authors/authors.component";
+import {UsersComponent} from "./components/books-app-components/users/users.component";
 
 const routes: Routes = [
   {
@@ -26,8 +28,20 @@ const routes: Routes = [
     component: HomeComponent,
     children: [
       {
+        path: '',
+        component: BooksComponent
+      },
+      {
         path: 'books',
         component: BooksComponent
+      },
+      {
+        path: 'authors',
+        component: AuthorsComponent
+      },
+      {
+        path: 'users',
+        component: UsersComponent
       }
     ]
   },

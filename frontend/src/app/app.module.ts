@@ -7,6 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
 import { NgxLocalStorageModule } from 'ngx-localstorage';
+import { StoreModule } from '@ngrx/store';
+import { spinnerReducer } from './store/reducers/spinner.reducer';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -19,6 +21,9 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { HomeComponent } from './components/books-app-components/home/home.component';
 import { BooksComponent } from './components/books-app-components/books/books.component';
+import { AppNavbarComponent } from './components/common/app-navbar/app-navbar.component';
+import { AuthorsComponent } from './components/books-app-components/authors/authors.component';
+import { UsersComponent } from './components/books-app-components/users/users.component';
 
 
 
@@ -28,7 +33,10 @@ import { BooksComponent } from './components/books-app-components/books/books.co
     SignInComponent,
     SignUpComponent,
     HomeComponent,
-    BooksComponent
+    BooksComponent,
+    AppNavbarComponent,
+    AuthorsComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
@@ -36,6 +44,7 @@ import { BooksComponent } from './components/books-app-components/books/books.co
     BrowserAnimationsModule,
     HttpClientModule,
     NgxLocalStorageModule.forRoot(),
+    StoreModule.forRoot({ isSpinnerRotate: spinnerReducer }),
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,

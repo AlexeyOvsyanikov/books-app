@@ -1,0 +1,24 @@
+.nav-bar{
+
+  height: 50px;
+  background-color: #0006d8;
+  display: flex;
+  align-items: center;
+
+  a{
+    color: white;
+    text-decoration: none;
+    margin-left: 15px;
+  }
+
+  .log-out{
+    flex: 1;
+    text-align: right;
+    button{
+      color: white;
+    }
+  }
+
+}
+
+

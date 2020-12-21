@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'frontend';
+  title = 'books-app';
+  public isSpinnerRotate$: Observable<boolean>;
+
+  constructor(
+    private store: Store<{ isSpinnerRotate: boolean }>
+  ) {
+    this.isSpinnerRotate$ = this.store.select('isSpinnerRotate');
+  }
+
 }
