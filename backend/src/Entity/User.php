@@ -34,6 +34,17 @@ class User implements UserInterface
      */
     private $password;
 
+    /**
+     * Many Users have Many Books.
+     * @ORM\ManyToMany(targetEntity="Book", inversedBy="owners")
+     * @ORM\JoinTable(name="users_books")
+     */
+    private $books;
+
+    public function __construct(){
+        $this->books = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -111,5 +122,16 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getBooks(){
+        return $this->books;
+    }
+
+    public function addBook(Book $book){
+        $this->books->add($book);
     }
 }

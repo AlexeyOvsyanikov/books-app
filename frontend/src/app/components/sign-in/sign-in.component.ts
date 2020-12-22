@@ -3,12 +3,14 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {LocalStorageService} from 'ngx-localstorage';
 
 import { User } from '../../entity/User';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../services/user/user.service';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
+import {IState} from '../../store/state';
 
 import { START_ROTATE_SPINNER , STOP_ROTATE_SPINNER } from '../../store/actions/spinner.actions';
+
 
 
 @Component({
@@ -33,7 +35,7 @@ export class SignInComponent implements OnInit {
     private userService: UserService,
     private localStorageService: LocalStorageService,
     private router: Router,
-    private store: Store<{ isSpinnerRotate: boolean }>
+    private store: Store<IState>
   ) {
       this.isSpinnerRotate$ = store.select('isSpinnerRotate');
   }
@@ -60,9 +62,6 @@ export class SignInComponent implements OnInit {
   signIn(): void{
 
     this.store.dispatch(START_ROTATE_SPINNER());
-    this.isSpinnerRotate$.subscribe( s => {
-      console.log(s);
-    } );
 
     this.userService.signIn(this.user).subscribe(
       res => {

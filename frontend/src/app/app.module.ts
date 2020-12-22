@@ -4,11 +4,12 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule , HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { NgxLocalStorageModule } from 'ngx-localstorage';
 import { StoreModule } from '@ngrx/store';
 import { spinnerReducer } from './store/reducers/spinner.reducer';
+import { userReducer } from './store/reducers/user.reducer';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -26,6 +27,7 @@ import { BooksComponent } from './components/books-app-components/books/books.co
 import { AppNavbarComponent } from './components/common/app-navbar/app-navbar.component';
 import { AuthorsComponent } from './components/books-app-components/authors/authors.component';
 import { UsersComponent } from './components/books-app-components/users/users.component';
+import { AuthCheckInterceptor } from './interceptors/auth-check.interceptor';
 
 
 @NgModule({
@@ -45,7 +47,7 @@ import { UsersComponent } from './components/books-app-components/users/users.co
     BrowserAnimationsModule,
     HttpClientModule,
     NgxLocalStorageModule.forRoot(),
-    StoreModule.forRoot({isSpinnerRotate: spinnerReducer}),
+    StoreModule.forRoot({isSpinnerRotate: spinnerReducer , user: userReducer}),
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
@@ -56,7 +58,11 @@ import { UsersComponent } from './components/books-app-components/users/users.co
     MatToolbarModule,
     MatMenuModule
   ],
-  providers: [],
+  providers: [{
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthCheckInterceptor,
+      multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {LocalStorageService} from 'ngx-localstorage';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppNavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private localStorageService: LocalStorageService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
   }
 
+  logOut(): void {
+
+    this.localStorageService.remove('user');
+    this.router.navigateByUrl('/sign-in');
+
+  }
 }

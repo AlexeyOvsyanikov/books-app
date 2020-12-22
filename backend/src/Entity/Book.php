@@ -48,8 +48,15 @@ class Book
      */
     private $authors;
 
+    /**
+     * Many Books have Many Authors.
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="books")
+     */
+    private $owners;
+
     public function __construct(){
         $this->authors = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->owners = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function getId(): ?int

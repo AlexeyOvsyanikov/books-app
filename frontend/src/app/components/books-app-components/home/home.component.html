@@ -1,4 +1,4 @@
-<app-navbar class="nav-bar"></app-navbar>
+<app-navbar #navBar class="nav-bar"></app-navbar>
 
 <mat-toolbar class="nav-bar-mobile">
   <button mat-icon-button  [matMenuTriggerFor]="menu" class="example-icon" aria-label="Example icon-button with menu icon">
@@ -12,7 +12,7 @@
       <a mat-button routerLink="authors">Authors</a>
       <a mat-button routerLink="users">Users</a>
       <div class="log-out">
-        <button mat-button>Log Out</button>
+        <button (click)="navBar.logOut()" mat-button>Log Out</button>
       </div>
     </mat-menu>
   </div>
