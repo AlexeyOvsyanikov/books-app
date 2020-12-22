@@ -4,12 +4,14 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
+use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTManager;
+use Lexik\Bundle\JWTAuthenticationBundle\Tests\Stubs\JWTUser;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Doctrine\Persistence\ObjectManager;
+
 /**
  * @Route("/api", name="registration")
  */
@@ -64,4 +66,38 @@ class RegistrationController extends AbstractController
             ], Response::HTTP_BAD_REQUEST);
         }
     }
+
+
+    /**
+     * @Route("/check_token", name="check_token" , methods={"POST"})
+     */
+    public function checkTokenAction(Request $request): Response{
+
+        $tokenFromClient = $request->headers->get('Authorization');
+
+        if( $tokenFromClient ) {
+            $tokenFromClient = substr($tokenFromClient,7);
+        }
+
+        $token = $this->container->get('security.token_storage')->getToken();
+
+        if($token){
+            $token = $token->getCredentials();
+        }
+
+        if( $token && $tokenFromClient && ($token === $tokenFromClient)) {
+
+            return $this->json([
+                'code' => Response::HTTP_OK,
+                'message'  => 'Authorized.',
+            ], Response::HTTP_OK);
+
+        }
+
+        return $this->json([
+            'code' => Response::HTTP_UNAUTHORIZED,
+            'message'  => 'Unauthorized.',
+        ], Response::HTTP_UNAUTHORIZED);
+    }
+
 }

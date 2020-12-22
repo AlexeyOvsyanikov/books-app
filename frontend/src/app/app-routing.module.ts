@@ -3,10 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 import {SignInComponent} from './components/sign-in/sign-in.component';
 import {SignUpComponent} from './components/sign-up/sign-up.component';
-import {HomeComponent} from "./components/books-app-components/home/home.component";
-import {BooksComponent} from "./components/books-app-components/books/books.component";
-import {AuthorsComponent} from "./components/books-app-components/authors/authors.component";
-import {UsersComponent} from "./components/books-app-components/users/users.component";
+import {HomeComponent} from './components/books-app-components/home/home.component';
+import {BooksComponent} from './components/books-app-components/books/books.component';
+import {AuthorsComponent} from './components/books-app-components/authors/authors.component';
+import {UsersComponent} from './components/books-app-components/users/users.component';
+import {CheckAccessGuard} from './guards/check-access/check-access.guard';
 
 const routes: Routes = [
   {
@@ -26,6 +27,8 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+    canActivate: [ CheckAccessGuard ],
+    canActivateChild: [ CheckAccessGuard ],
     children: [
       {
         path: '',
