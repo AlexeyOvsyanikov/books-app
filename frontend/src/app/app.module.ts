@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule , HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthCheckInterceptor } from './interceptors/auth-check.interceptor';
 
 import { NgxLocalStorageModule } from 'ngx-localstorage';
 import { StoreModule } from '@ngrx/store';
@@ -19,6 +20,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTableModule } from '@angular/material/table';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
@@ -27,8 +33,8 @@ import { BooksComponent } from './components/books-app-components/books/books.co
 import { AppNavbarComponent } from './components/common/app-navbar/app-navbar.component';
 import { AuthorsComponent } from './components/books-app-components/authors/authors.component';
 import { UsersComponent } from './components/books-app-components/users/users.component';
-import { AuthCheckInterceptor } from './interceptors/auth-check.interceptor';
-
+import { ConfirmComponent } from './components/common/dialog/confirm/confirm.component';
+import { UpdateAuthorComponent } from './components/common/dialog/update-author/update-author.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +45,9 @@ import { AuthCheckInterceptor } from './interceptors/auth-check.interceptor';
     BooksComponent,
     AppNavbarComponent,
     AuthorsComponent,
-    UsersComponent
+    UsersComponent,
+    ConfirmComponent,
+    UpdateAuthorComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,7 +55,7 @@ import { AuthCheckInterceptor } from './interceptors/auth-check.interceptor';
     BrowserAnimationsModule,
     HttpClientModule,
     NgxLocalStorageModule.forRoot(),
-    StoreModule.forRoot({isSpinnerRotate: spinnerReducer , user: userReducer}),
+    StoreModule.forRoot({isSpinnerRotate: spinnerReducer, user: userReducer}),
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
@@ -56,7 +64,12 @@ import { AuthCheckInterceptor } from './interceptors/auth-check.interceptor';
     MatButtonModule,
     MatProgressSpinnerModule,
     MatToolbarModule,
-    MatMenuModule
+    MatMenuModule,
+    MatExpansionModule,
+    MatTableModule,
+    MatSnackBarModule,
+    MatPaginatorModule,
+    MatDialogModule
   ],
   providers: [{
       provide: HTTP_INTERCEPTORS,
