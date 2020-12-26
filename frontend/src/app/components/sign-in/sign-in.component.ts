@@ -5,11 +5,11 @@ import {LocalStorageService} from 'ngx-localstorage';
 import { User } from '../../entity/User';
 import { UserService } from '../../services/user/user.service';
 import {Router} from '@angular/router';
-import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {IState} from '../../store/state';
 
 import { START_ROTATE_SPINNER , STOP_ROTATE_SPINNER } from '../../store/actions/spinner.actions';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 
@@ -26,8 +26,6 @@ export class SignInComponent implements OnInit {
   });
 
   public hide = true;
-  public authErrorMessage = '';
-  public isSpinnerRotate$: Observable<boolean>;
 
   public user = new User();
 
@@ -35,10 +33,9 @@ export class SignInComponent implements OnInit {
     private userService: UserService,
     private localStorageService: LocalStorageService,
     private router: Router,
+    private snackBar: MatSnackBar,
     private store: Store<IState>
-  ) {
-      this.isSpinnerRotate$ = store.select('isSpinnerRotate');
-  }
+  ) {}
 
   ngOnInit(): void {
   }
@@ -65,7 +62,6 @@ export class SignInComponent implements OnInit {
 
     this.userService.signIn(this.user).subscribe(
       res => {
-        this.authErrorMessage = '';
 
         this.localStorageService.set('user', {
           email: this.user.email,
@@ -76,7 +72,10 @@ export class SignInComponent implements OnInit {
         this.router.navigateByUrl('home');
       },
       err => {
-        this.authErrorMessage = err.error.message;
+        this.snackBar.open(err.error.message, 'Close' , {
+          duration: 4000,
+          panelClass: 'error-snackbar'
+        });
         this.store.dispatch(STOP_ROTATE_SPINNER());
       }
     );

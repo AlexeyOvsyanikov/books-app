@@ -3,13 +3,15 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor, HttpErrorResponse
 } from '@angular/common/http';
 import {Observable} from 'rxjs';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'ngx-localstorage';
 import { Store } from '@ngrx/store';
 import { IState } from '../store/state';
+import {tap} from "rxjs/operators";
+import {STOP_ROTATE_SPINNER} from "../store/actions/spinner.actions";
 
 @Injectable()
 export class AuthCheckInterceptor implements HttpInterceptor {
@@ -36,8 +38,17 @@ export class AuthCheckInterceptor implements HttpInterceptor {
 
       request.headers.append('Authorization', `Bearer ${token}`);
 
-
-      return next.handle(request);
+      return next.handle(request).pipe(
+        tap(
+          (event) => {},
+          (error) => {
+            if (error instanceof HttpErrorResponse && error.status === 401) {
+              this.store.dispatch( STOP_ROTATE_SPINNER() );
+              this.router.navigateByUrl('/sign-in');
+            }
+          }
+        )
+      );
     }
 
     return next.handle(req);
