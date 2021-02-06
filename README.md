@@ -9,4 +9,6 @@ Port: 80 must be free. if you run the project from under windows you need to add
 - 127.0.0.1 api.books www.api.books
 - 127.0.0.1 frontend.books www.frontend.books
 
+Also, you must generate 2 certificates for authentication and place them in the config / jwt directory (https://github.com/lexik/LexikJWTAuthenticationBundle/blob/master/Resources/doc/index.md#generate-the-ssl-keys )
+
 After that, go to the http://frontend.books link in your browser and enter the application: admin@gmail.com / 123456.
