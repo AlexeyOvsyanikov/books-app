@@ -26,6 +26,7 @@ backend/var/
 backend/vendor/
 backend/symfony.lock
 backend/composer.lock
+
 #frontend
 
 frontend/dist
@@ -52,3 +53,6 @@ frontend/typings
 
 frontend/.DS_Store
 frontend/Thumbs.db
+
+#mysql
+mysql
