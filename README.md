@@ -9,4 +9,4 @@ Port: 80 must be free. if you run the project from under windows you need to add
 - 127.0.0.1 api.books www.api.books
 - 127.0.0.1 frontend.books www.frontend.books
 
-After that, go to the frontend.books link in your browser and enter the application: admin@gmail.com / 123456.
+After that, go to the http://frontend.books link in your browser and enter the application: admin@gmail.com / 123456.
