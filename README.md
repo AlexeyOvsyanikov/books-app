@@ -11,4 +11,10 @@ Port: 80 must be free. if you run the project from under windows you need to add
 
 Also, you must generate 2 certificates for authentication and place them in the config / jwt directory (https://github.com/lexik/LexikJWTAuthenticationBundle/blob/master/Resources/doc/index.md#generate-the-ssl-keys )
 
+At now the application in dev mode. You should start symfony dev-server: cd backend -> symfony server:start
+
 After that, go to the http://frontend.books link in your browser and enter the application: admin@gmail.com / 123456.
+
+# Swagger
+
+The all API-endpoints you can see here: http://api.books/api/docs
