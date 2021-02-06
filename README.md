@@ -14,3 +14,7 @@ Also, you must generate 2 certificates for authentication and place them in the 
 At now the application in dev mode. You should start symfony dev-server: cd backend -> symfony server:start
 
 After that, go to the http://frontend.books link in your browser and enter the application: admin@gmail.com / 123456.
+
+# Swagger
+
+The all API-endpoints you can see here: http://api.books/api/docs
