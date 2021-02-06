@@ -1,0 +1,60 @@
+::ng-deep{
+
+  app-book{
+    margin-left: 15px;
+    width: 33%;
+
+    //img{
+    //  width: 225px;
+    //  height: 170px;
+    //}
+
+    .book-description{
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+  }
+
+  app-book:first-child{
+    margin-left: 0;
+  }
+
+  app-books{
+    .books-item-wrapper{
+      display: flex;
+      justify-content: center;
+
+      .book-items{
+        display: flex;
+        width: 60%;
+
+        .book-item{
+          background-color: #f9f9f9;
+          box-shadow: 0 0 4px rgba(0,0,0,0.5);
+          padding: 10px;
+          border-radius: 5px;
+        }
+
+      }
+    }
+  }
+
+  @media screen and (max-width: 640px){
+    app-books{
+      .books-item-wrapper{
+        .book-items{
+          flex-direction: column;
+          width: 75%;
+        }
+
+        app-book{
+          width: 100%;
+          margin-left: 0;
+        }
+      }
+    }
+  }
+
+}

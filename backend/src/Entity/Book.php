@@ -3,6 +3,10 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Repository\AuthorRepository;
+use Doctrine\Common\Collections\Criteria;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 use App\Repository\BookRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -10,6 +14,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass=BookRepository::class)
  * @ApiResource(
  *     attributes={"security"="is_granted('ROLE_USER')"},
+ *     normalizationContext={"groups"={"book"}},
+ *     denormalizationContext={"groups"={"book"}},
  *     collectionOperations={
  *         "get",
  *         "post"={"security"="is_granted('ROLE_USER')"}
@@ -27,41 +33,48 @@ class Book
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"book","author"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=150)
      * @Assert\NotBlank
+     * @Groups({"book","author"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="smallint", nullable=true)
+     * @Groups({"book"})
      */
     private $year;
 
     /**
      * @ORM\Column(type="string", length=2000)
      * @Assert\NotBlank
+     * @Groups({"book"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=2048, nullable=true)
+     * @Groups({"book"})
      */
     private $image;
 
 
     /**
      * Many Books have Many Authors.
-     * @ORM\ManyToMany(targetEntity="Author", mappedBy="books")
+     * @ORM\ManyToMany(targetEntity="Author" , mappedBy="books")
+     * @Groups({"book"})
      */
-    private $authors;
+    public $authors;
 
     /**
-     * Many Books have Many Authors.
+     * Many Books have Many Owners.
      * @ORM\ManyToMany(targetEntity="User", mappedBy="books")
+     * @Groups({"book"})
      */
     private $owners;
 
@@ -128,7 +141,7 @@ class Book
         return $this;
     }
 
-    public function getAuthors(Author $author) : \Doctrine\Common\Collections\ArrayCollection{
+    public function getAuthors(){
         return $this->authors;
     }
 

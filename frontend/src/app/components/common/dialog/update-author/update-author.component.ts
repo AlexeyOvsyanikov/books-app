@@ -14,8 +14,8 @@ import {Author} from '../../../../entity/Author';
 export class UpdateAuthorComponent implements OnInit {
 
   authorAuthorForm = new FormGroup({
-    firstname: new FormControl('', [Validators.required, Validators.pattern('^[^ ][a-zA-Z ]{2,99}[^ ]$') ]),
-    lastname: new FormControl('', [Validators.required, Validators.pattern('^[^ ][a-zA-Z ]{2,99}[^ ]$')]),
+    firstname: new FormControl('', [Validators.required, Validators.pattern('^[^ ][a-zA-Z ]{1,99}[^ ]$') ]),
+    lastname: new FormControl('', [Validators.required, Validators.pattern('^[^ ][a-zA-Z ]{1,99}[^ ]$')]),
   });
 
   author: Author;

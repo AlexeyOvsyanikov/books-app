@@ -1,6 +1,6 @@
 export class Author {
   public id = 0;
-  public firstname = 'Alexandr';
-  public lastname = 'Pushkin';
+  public firstName = 'Alexandr';
+  public lastName = 'Pushkin';
   public books = [];
 }

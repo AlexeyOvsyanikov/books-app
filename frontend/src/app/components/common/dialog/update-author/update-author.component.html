@@ -3,13 +3,13 @@
   <form [formGroup]="authorAuthorForm" class="form">
     <mat-form-field appearance="fill">
       <mat-label>First Name:</mat-label>
-      <input [(ngModel)]="author.firstname" matInput formControlName="firstname" required>
+      <input [(ngModel)]="author.firstName" matInput formControlName="firstname" required>
       <mat-error *ngIf="authorAuthorForm.controls.firstname.invalid">{{getFirstNameErrorMessage()}}</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Last Name:</mat-label>
-      <input [(ngModel)]="author.lastname" matInput formControlName="lastname" required>
+      <input [(ngModel)]="author.lastName" matInput formControlName="lastname" required>
       <mat-error *ngIf="authorAuthorForm.controls.lastname.invalid">{{getLastNameErrorMessage()}}</mat-error>
     </mat-form-field>
   </form>

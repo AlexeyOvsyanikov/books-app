@@ -7,7 +7,7 @@ services:
 
   # nginx
   nginx-service:
-    image: nginx:stable-alpine
+    image: nginx:latest
     container_name: nginx-container
     build:
       context: .

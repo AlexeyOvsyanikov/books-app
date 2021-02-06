@@ -5,10 +5,7 @@ RUN apt-get update && apt-get install -y zlib1g-dev g++ git libicu-dev zip libzi
     && pecl install apcu \
     && docker-php-ext-enable apcu \
     && docker-php-ext-configure zip \
-    && docker-php-ext-install zip
-
-WORKDIR /var/www/books-app-symfony
-
-RUN curl -sS https://getcomposer.org/installedocker exec -ti {{ container name }} /bin/shr | php -- --install-dir=/usr/local/bin --filename=composer
+    && docker-php-ext-install zip \
+    && docker-php-ext-install fileinfo && docker-php-ext-enable fileinfo
 
 

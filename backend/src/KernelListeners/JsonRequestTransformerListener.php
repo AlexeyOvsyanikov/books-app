@@ -17,13 +17,13 @@ class JsonRequestTransformerListener {
         if (empty($content)) {
             return;
         }
-        if (!$this->isJsonRequest($request)) {
-            return;
+        if ($this->isJsonRequest($request)) {
+            if (!$this->transformJsonBody($request)) {
+                $response = Response::create('Unable to parse request.', 400);
+                $event->setResponse($response);
+            }
         }
-        if (!$this->transformJsonBody($request)) {
-            $response = Response::create('Unable to parse request.', 400);
-            $event->setResponse($response);
-        }
+
     }
 
 

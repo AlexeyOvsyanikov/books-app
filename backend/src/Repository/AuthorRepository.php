@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Author;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,6 +18,26 @@ class AuthorRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Author::class);
+    }
+
+    /**
+     * @param $searchString
+     * @param array $skipAuthors
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function searchAuthors($searchString, $skipAuthors = []){
+        $criteria = Criteria::create()
+            ->where(
+                Criteria::expr()->andX(
+                    Criteria::expr()->orX(
+                        Criteria::expr()->contains('firstName' , $searchString),
+                        Criteria::expr()->contains('lastName' , $searchString)
+                    ),
+                    Criteria::expr()->notIn('id',$skipAuthors)
+                )
+            );
+
+        return $this->matching($criteria);
     }
 
     // /**

@@ -7,11 +7,13 @@ import {
 } from '@angular/common/http';
 import {Observable} from 'rxjs';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { LocalStorageService } from 'ngx-localstorage';
 import { Store } from '@ngrx/store';
 import { IState } from '../store/state';
-import {tap} from "rxjs/operators";
-import {STOP_ROTATE_SPINNER} from "../store/actions/spinner.actions";
+import {tap} from 'rxjs/operators';
+import {STOP_ROTATE_SPINNER} from '../store/actions/spinner.actions';
+
 
 @Injectable()
 export class AuthCheckInterceptor implements HttpInterceptor {
@@ -19,6 +21,7 @@ export class AuthCheckInterceptor implements HttpInterceptor {
   constructor(
     private router: Router,
     private localStorageService: LocalStorageService,
+    private snackBar: MatSnackBar,
     private store: Store<IState>
   ) { }
 
@@ -42,9 +45,25 @@ export class AuthCheckInterceptor implements HttpInterceptor {
         tap(
           (event) => {},
           (error) => {
-            if (error instanceof HttpErrorResponse && error.status === 401) {
+            if (error instanceof HttpErrorResponse) {
+
               this.store.dispatch( STOP_ROTATE_SPINNER() );
-              this.router.navigateByUrl('/sign-in');
+
+              switch (error.status){
+
+                case 401:
+                  this.router.navigateByUrl('/sign-in');
+                  break;
+
+                case 500:
+                  this.snackBar.open('Internal server error. We already works on this issue!', 'Close' , {
+                    panelClass: 'error-snackbar',
+                    duration: 4000
+                  });
+                  break;
+
+              }
+
             }
           }
         )
