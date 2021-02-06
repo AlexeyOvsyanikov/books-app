@@ -1,1 +1,106 @@
-<p>books works!</p>
+<!--<p>books works!</p>-->
+<!--<form enctype="multipart/form-data">-->
+<!--  <input type="file" accept="image/*" (change)="onBookImageChanged()" #bookImage >-->
+<!--</form>-->
+
+<div class="flex-center-section">
+  <div class="flex-center-section-controls">
+
+    <h3 class="text">Books</h3>
+    <mat-accordion>
+      <mat-expansion-panel hideToggle [disabled]="isLoadingBooksAndAuthors">
+        <mat-expansion-panel-header>
+
+          <mat-panel-title>
+            Add new book form
+          </mat-panel-title>
+
+        </mat-expansion-panel-header>
+
+        <div class="flex-center-section">
+          <form [formGroup]="addBookGroup" class="form" >
+            <mat-form-field appearance="fill">
+              <mat-label>Book title:</mat-label>
+              <input [(ngModel)]="book.title" matInput placeholder="Crime and Punishment" formControlName="bookTitle" required>
+              <mat-error *ngIf="addBookGroup.controls.bookTitle.invalid">{{getTitleErrorMessage()}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Book description:</mat-label>
+              <textarea [(ngModel)]="book.description" matInput placeholder="This book about..." formControlName="bookDescription" required></textarea>
+              <mat-error *ngIf="addBookGroup.controls.bookDescription.invalid">{{getDescriptionErrorMessage()}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Book year:</mat-label>
+              <input [(ngModel)]="book.year" matInput placeholder="1866" formControlName="bookYear" type="number">
+            </mat-form-field>
+
+            <mat-form-field class="example-chip-list">
+
+              <mat-label>Select book authors</mat-label>
+
+              <div style="margin: 15px 0">
+                <input
+                  placeholder="Input author..."
+                  #authorSearchString
+                  [formControl]="bookAuthorFormControl"
+                  [matAutocomplete]="auto"
+                  [matChipInputFor]="chipList" />
+              </div>
+
+              <mat-chip-list #chipList aria-label="Authors selection">
+
+                <mat-chip
+                  *ngFor="let author of bookAuthors"
+                  [selectable]="true"
+                  [removable]="true"
+                  (removed)="removeBookAuthor(author)">
+                  {{author.firstName}} {{author.lastName}}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+
+              </mat-chip-list>
+
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="authorSelected($event)">
+                <mat-option *ngFor="let author of filteredAuthors" [value]="author.id">
+                  {{author.firstName}} {{author.lastName}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+
+            <div (click)="chooseFile();" style="display: flex; align-items: center; margin-bottom: 15px; cursor: pointer">
+              <button style="width: 55px" mat-fab color="primary" aria-label="Upload file section">
+                <mat-icon>attach_file</mat-icon>
+              </button>
+              <div *ngIf="!fileName" style="margin-left: 10px;">Choose file</div>
+              <div *ngIf="fileName" style="margin-left: 10px;">Your file: {{fileName}}</div>
+              <input style="display: none" type="file" accept="image/*" #bookImage (change)="bookImageChanged()">
+            </div>
+
+            <div>
+              <button [disabled]="addBookGroup.invalid" (click)="addBook()" mat-stroked-button color="primary">Add</button>
+            </div>
+
+          </form>
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+
+  </div>
+</div>
+
+<div class="flex-center-section" *ngIf="isLoadingBooksAndAuthors">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div class="flex-center-section" *ngIf="isLoadingBooksAndAuthors">
+  Loading Books...
+</div>
+
+<div class="books-item-wrapper">
+  <div class="book-items">
+    <app-book style="margin-top: 25px" *ngFor="let book of books" [book]="book" ></app-book>
+  </div>
+</div>

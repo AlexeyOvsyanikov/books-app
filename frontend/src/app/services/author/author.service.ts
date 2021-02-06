@@ -30,8 +30,8 @@ export class AuthorService {
 
   addAuthor(author: Author): Observable<Author>{
     return this.http.post(`${ApiRoutes.host}${ApiRoutes.prefix}${ApiRoutes.authors}`, {
-      firstname: author.firstname,
-      lastname: author.lastname
+      firstName: author.firstName,
+      lastName: author.lastName
     }) as Observable<Author>;
   }
 
@@ -43,10 +43,23 @@ export class AuthorService {
       return this.http.patch(
         `${ApiRoutes.host}${ApiRoutes.prefix}${ApiRoutes.authors}/${author.id}`,
         {
-          firstname: author.firstname,
-          lastname: author.lastname
+          firstName: author.firstName,
+          lastName: author.lastName
         }
       ) as Observable<Author>;
   }
 
+  searchAuthors(searchString: string , skipAuthors: number[] = []): Observable<Author[]>{
+
+    const params = new HttpParams()
+      .append('search', searchString)
+      .append('skipAuthors', skipAuthors.join(','));
+
+    return this.http.get(
+      `${ApiRoutes.host}${ApiRoutes.prefix}${ApiRoutes.authors}/${ApiRoutes.search}`,
+      {
+        params
+      }
+    ) as Observable<Author[]>;
+  }
 }

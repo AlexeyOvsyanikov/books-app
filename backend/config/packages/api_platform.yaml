@@ -2,6 +2,8 @@ api_platform:
     version: '1.0.0'
     mapping:
         paths: ['%kernel.project_dir%/src/Entity']
+    eager_loading:
+        max_joins: 1
     patch_formats:
         json: ['application/json']
     swagger:

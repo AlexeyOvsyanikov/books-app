@@ -11,16 +11,54 @@ class AuthorFixture extends Fixture
     public function load(ObjectManager $manager)
     {
 
-        for($i = 1 ; $i <= 10 ; $i++ ){
+        $authors = [
+            [
+                'firstname' => 'Mikhail',
+                'lastname' => 'Lermontov'
+            ],
+            [
+                'firstname' => 'Lev',
+                'lastname' => 'Tolstoi'
+            ],
+            [
+                'firstname' => 'Anton',
+                'lastname' => 'Chekhov'
+            ],
+            [
+                'firstname' => 'Ivan',
+                'lastname' => 'Turgenev'
+            ],
+            [
+                'firstname' => 'Nikolai',
+                'lastname' => 'Gogol'
+            ],
+            [
+                'firstname' => 'Aleksandr',
+                'lastname' => 'Blok'
+            ],
+            [
+                'firstname' => 'Nikolai',
+                'lastname' => 'Nekrasov'
+            ],
+            [
+                'firstname' => 'Ivan',
+                'lastname' => 'Bunin'
+            ],
+        ];
 
-            $author = new Author();
 
-            $author->setFirstname("Author firstname $i");
-            $author->setLastname("Author lastname $i");
-            $manager->persist($author);
+        foreach ($authors as $author){
+
+            $newAuthor = new Author();
+
+
+            $newAuthor->setFirstname($author['firstname']);
+            $newAuthor->setLastname($author['lastname']);
+            $manager->persist($newAuthor);
+
+            $manager->flush();
 
         }
 
-        $manager->flush();
     }
 }

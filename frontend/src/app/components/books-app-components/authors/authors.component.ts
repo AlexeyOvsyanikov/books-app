@@ -29,8 +29,8 @@ import {UpdateAuthorComponent} from '../../common/dialog/update-author/update-au
 export class AuthorsComponent implements OnInit {
 
   addAuthorForm = new FormGroup({
-    firstname: new FormControl('', [Validators.required, Validators.pattern('^[^ ][a-zA-Z ]{2,99}[^ ]$')]),
-    lastname: new FormControl('', [Validators.required, Validators.pattern('^[^ ][a-zA-Z ]{2,99}[^ ]$')]),
+    firstname: new FormControl('', [Validators.required, Validators.pattern('^[^ ][a-zA-Z ]{1,99}[^ ]$')]),
+    lastname: new FormControl('', [Validators.required, Validators.pattern('^[^ ][a-zA-Z ]{1,99}[^ ]$')]),
   });
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator | undefined;
@@ -40,7 +40,7 @@ export class AuthorsComponent implements OnInit {
   public dataSource: MatTableDataSource<Author> = new MatTableDataSource<Author>(this.authors);
   public authorsTotal = 0;
 
-  authorsColumns: string[] = ['firstname', 'lastname', 'remove', 'update'];
+  authorsColumns: string[] = ['firstName', 'lastName', 'remove', 'update'];
 
   public isLoadingAuthors = false;
   private page = 1;
@@ -156,7 +156,7 @@ export class AuthorsComponent implements OnInit {
 
     this.dialog.open(ConfirmComponent, {
       data: {
-        message: `${author.firstname} ${author.lastname}`
+        message: `${author.firstName} ${author.lastName}`
       }
     }).afterClosed()
       .subscribe(result => {
@@ -216,8 +216,8 @@ export class AuthorsComponent implements OnInit {
               })
             )
             .subscribe((updatedAuthor: Author) => {
-                author.firstname = updatedAuthor.firstname;
-                author.lastname = updatedAuthor.lastname;
+                author.firstName = updatedAuthor.firstName;
+                author.lastName = updatedAuthor.lastName;
               },
               error => {
               },
